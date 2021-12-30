@@ -7,13 +7,13 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 module.exports = {
     mode: isDevelopment ? 'development' : 'production',
     devtool: isDevelopment ? 'eval-source-map' : 'source-map',
-    entry: path.resolve(__dirname, 'src', 'index.jsx'), //Qual o arquivo inicial da aplicação
+    entry: path.resolve(__dirname, 'src', 'index.tsx'), //Qual o arquivo inicial da aplicação
     output: { // Para onde os arquivos que o webpack converterá serão enviados
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
     resolve:{
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     devServer: {
         static: path.resolve(__dirname, 'public'),
@@ -28,7 +28,7 @@ module.exports = {
     module: { // Configurações de como a aplicação vai se comportar de acordo com o formato do arquivo
         rules: [
             {
-                test: /\.jsx$/,
+                test: /\.(j|t)sx$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -43,7 +43,7 @@ module.exports = {
                 test: /\.scss$/,
                 exclude: /node_modules/,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
-            }
+            },
         ]
     }
 }
