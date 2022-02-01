@@ -1,11 +1,13 @@
 import { FormControl, FormLabel, Input, InputProps } from "@chakra-ui/react";
+import { forwardRef, ForwardRefRenderFunction } from "react";
+import { UseFormRegister } from "react-hook-form";
 
 interface CustomInputProps extends InputProps {
     name: string;
     label?: string;
 }
 
-export function CustomInput({ name, label, ...rest }: CustomInputProps) {
+const CustomInputBase: ForwardRefRenderFunction<HTMLInputElement, CustomInputProps> = ({ name, label, ...rest }, ref) => {
     return (
         <FormControl>
             {!!label && <FormLabel htmlFor='password'>{label}</FormLabel>}
@@ -18,9 +20,12 @@ export function CustomInput({ name, label, ...rest }: CustomInputProps) {
                 _hover={{
                     bgColor: 'gray.900',
                 }}
+                ref={ref}
                 size='lg'
                 {...rest}
             />
         </FormControl>
     );
 }
+
+export const CustomInput = forwardRef(CustomInputBase);
